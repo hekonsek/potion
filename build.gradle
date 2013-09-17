@@ -1,34 +1,29 @@
-// Maven compatibility
-apply plugin: 'maven'
-group = 'com.github.scalapi'
-version = '0.5-SNAPSHOT'
+subprojects {
+    // Maven compatibility
+    apply plugin: 'maven'
+    group = 'com.github.potion-lib'
+    version = '0.0-SNAPSHOT'
 
-// JVM
-apply plugin: 'scala'
+    // JVM
+    apply plugin: 'scala'
 
-// Dependencies
-apply plugin: 'propdeps'
-apply plugin: 'propdeps-maven'
-apply plugin: 'propdeps-idea'
-apply plugin: 'propdeps-eclipse'
+    // Dependencies
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-maven'
 
-ext {
-    guavaDependency = 'com.google.guava:guava:14.0.1'
-    scalapiJdkDependency = ':scalapi-jdk'
-}
+    dependencies {
+        compile 'org.scala-lang:scala-library:2.10.2'
+        compile 'org.slf4j:slf4j-api:1.7.5'
 
-dependencies {
-    compile 'org.scala-lang:scala-library:2.10.2'
-    compile 'org.slf4j:slf4j-api:1.7.5'
+        testCompile 'junit:junit:4.11'
+        testCompile 'org.scalatest:scalatest_2.10:1.9.1'
+        testCompile 'org.mockito:mockito-core:1.9.5'
+        testCompile 'ch.qos.logback:logback-classic:1.0.13'
+    }
 
-    testCompile 'junit:junit:4.11'
-    testCompile 'org.scalatest:scalatest_2.10:1.9.1'
-    testCompile 'org.mockito:mockito-core:1.9.5'
-    testCompile 'ch.qos.logback:logback-classic:1.0.13'
-}
-
-repositories {
-    mavenCentral()
+    repositories {
+        mavenCentral()
+    }
 }
 
 buildscript {
@@ -37,6 +32,6 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.1'
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.3'
     }
 }
