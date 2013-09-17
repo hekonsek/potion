@@ -3,7 +3,8 @@ package potion.core
 import Elixirs._
 import System.nanoTime
 
-class DefaultPaymentOrderRecordGenerator extends PaymentOrderRecordGenerator {
+class DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver: TransactionTypeChecksumResolver)
+  extends PaymentOrderRecordGenerator {
 
   private def quotes(value: Any): String =
     "\"%s\"".format(value)
@@ -13,14 +14,19 @@ class DefaultPaymentOrderRecordGenerator extends PaymentOrderRecordGenerator {
 
   def generate(paymentOrder: PaymentOrder): String = Seq(
     paymentOrder.transactionType,
-    paymentOrder.dateOfPayment,
+    paymentOrderDateFormat.format(paymentOrder.dateOfPayment),
     paymentOrder.amount,
+    paymentOrder.senderBankSettlementNumber,
+    0,
     quotes(paymentOrder.senderBankAccountNumber),
     quotes(paymentOrder.receiverBankAccountNumber),
     quotes(multiLine(paymentOrder.senderNameAndAddress)),
     quotes(multiLine(paymentOrder.receiverNameAndAddress)),
+    0,
     paymentOrder.receiverBankSettlementNumber,
     quotes(multiLine(paymentOrder.descriptionOfPayment)),
+    quotes(""), quotes(""),
+    quotes(transactionTypeChecksumResolver.transactionTypeChecksum(paymentOrder.transactionType)),
     quotes(paymentOrder.clientCorrelationId.getOrElse(nanoTime))
   ) mkString recordFieldsSeparator
 
