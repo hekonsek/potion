@@ -1,4 +1,4 @@
-package potion.core
+package potion.elixirzero
 
 class TaxUnawareTransactionTypeChecksumResolver extends TransactionTypeChecksumResolver {
 

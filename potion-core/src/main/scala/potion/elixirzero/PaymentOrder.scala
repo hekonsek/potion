@@ -1,4 +1,4 @@
-package potion.core
+package potion.elixirzero
 
 import java.util.Date
 
