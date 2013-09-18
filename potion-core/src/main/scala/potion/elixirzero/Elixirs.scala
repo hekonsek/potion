@@ -18,4 +18,6 @@ object Elixirs {
 
   val paymentOrderDateFormat = new SimpleDateFormat(paymentOrderDateFormatPattern)
 
+  val sorbnetIdentifier = "SORBNET"
+
 }

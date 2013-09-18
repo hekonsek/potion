@@ -6,20 +6,6 @@ import Elixirs._
 class DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver: TransactionTypeChecksumResolver)
   extends PaymentOrderRecordGenerator {
 
-  private def quotes(value: Any): String =
-    "\"%s\"".format(value)
-
-  private def multiLine(lines: Seq[String]): String =
-    lines.mkString(multiLineSeparator)
-
-  private def sorbnetDescription(paymentOrder: PaymentOrder): String = {
-    val descriptionLines = paymentOrder.sorbnet match {
-      case true => paymentOrder.descriptionOfPayment :+ "SORBNET"
-      case false => paymentOrder.descriptionOfPayment
-    }
-    quotes(multiLine(descriptionLines))
-  }
-
   def generate(paymentOrder: PaymentOrder): String = Seq(
     paymentOrder.transactionType,
     paymentOrderDateFormat.format(paymentOrder.dateOfPayment),
@@ -32,10 +18,26 @@ class DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver: Transa
     quotes(multiLine(paymentOrder.receiverNameAndAddress)),
     0,
     paymentOrder.receiverBankSettlementNumber,
-    sorbnetDescription(paymentOrder),
+    paymentDescription(paymentOrder),
     quotes(""), quotes(""),
     quotes(transactionTypeChecksumResolver.transactionTypeChecksum(paymentOrder.transactionType)),
     quotes(paymentOrder.clientCorrelationId.getOrElse(nanoTime))
   ) mkString recordFieldsSeparator
+
+  // Generator helpers
+
+  private def quotes(value: Any): String =
+    "\"%s\"".format(value)
+
+  private def multiLine(lines: Seq[String]): String =
+    lines.mkString(multiLineSeparator)
+
+  private def paymentDescription(paymentOrder: PaymentOrder): String = {
+    val descriptionLines = paymentOrder.sorbnet match {
+      case true => paymentOrder.descriptionOfPayment :+ sorbnetIdentifier
+      case false => paymentOrder.descriptionOfPayment
+    }
+    quotes(multiLine(descriptionLines))
+  }
 
 }
