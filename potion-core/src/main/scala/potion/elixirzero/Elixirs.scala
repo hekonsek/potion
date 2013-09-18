@@ -4,12 +4,6 @@ import java.text.SimpleDateFormat
 
 object Elixirs {
 
-  object TransactionType {
-    val regularAndTax = 110
-    val insurance = 120
-    val paymentOrder = 210
-  }
-
   val recordFieldsSeparator = ","
 
   val multiLineSeparator = "|"
@@ -19,5 +13,13 @@ object Elixirs {
   val paymentOrderDateFormat = new SimpleDateFormat(paymentOrderDateFormatPattern)
 
   val sorbnetIdentifier = "SORBNET"
+
+  object TransactionType extends Enumeration {
+    type TransactionType = Value
+
+    val regularAndTax = Value(110)
+    val insurance = Value(120)
+    val paymentOrder = Value(210)
+  }
 
 }

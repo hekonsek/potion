@@ -7,7 +7,7 @@ class DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver: Transa
   extends PaymentOrderRecordGenerator {
 
   def generate(paymentOrder: PaymentOrder): String = Seq(
-    paymentOrder.transactionType,
+    paymentOrder.transactionType.id,
     paymentOrderDateFormat.format(paymentOrder.dateOfPayment),
     paymentOrder.amount,
     paymentOrder.senderBankSettlementNumber,

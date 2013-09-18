@@ -1,8 +1,9 @@
 package potion.elixirzero
 
 import java.util.Date
+import potion.elixirzero.Elixirs.TransactionType.TransactionType
 
-case class PaymentOrder(transactionType: Int,
+case class PaymentOrder(transactionType: TransactionType,
                         dateOfPayment: Date,
                         amount: Long,
                         senderBankSettlementNumber: Long,

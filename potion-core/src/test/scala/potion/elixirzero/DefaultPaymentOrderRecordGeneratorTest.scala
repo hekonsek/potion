@@ -16,7 +16,7 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
   test("Should generate example from ING specification.") {
     val ingReferenceExample = fromInputStream(getClass.getResourceAsStream("ing_elixir_example.txt")).getLines().next()
     val paymentOrder = PaymentOrder(
-      transactionType = 110,
+      transactionType = TransactionType.regularAndTax,
       dateOfPayment = paymentOrderDateFormat.parse("20040510"),
       amount = 403595,
       senderBankSettlementNumber = 10501038,
@@ -37,7 +37,7 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
   test("Should generate Sorbnet example #1.") {
     val sorbnetReferenceExample = fromInputStream(getClass.getResourceAsStream("sorbnet_example_01.txt")).getLines().next()
     val paymentOrder = PaymentOrder(
-      transactionType = 110,
+      transactionType = TransactionType.regularAndTax,
       dateOfPayment = paymentOrderDateFormat.parse("20130701"),
       amount = 45000000,
       senderBankSettlementNumber = 10501038,
@@ -59,7 +59,7 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
   test("Should generate Sorbnet example #2.") {
     val sorbnetReferenceExample = fromInputStream(getClass.getResourceAsStream("sorbnet_example_02.txt")).getLines().next()
     val paymentOrder = PaymentOrder(
-      transactionType = 110,
+      transactionType = TransactionType.regularAndTax,
       dateOfPayment = paymentOrderDateFormat.parse("20130701"),
       amount = 47498966,
       senderBankSettlementNumber = 10554038,
@@ -77,6 +77,5 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
       paymentOrderRecordGenerator.generate(paymentOrder)
     }
   }
-
 
 }

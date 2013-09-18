@@ -1,8 +1,10 @@
 package potion.elixirzero
 
+import potion.elixirzero.Elixirs.TransactionType.TransactionType
+
 class TaxUnawareTransactionTypeChecksumResolver extends TransactionTypeChecksumResolver {
 
-  def transactionTypeChecksum(transactionType: Int): String =
+  def transactionTypeChecksum(transactionType: TransactionType): String =
     transactionType match {
       case Elixirs.TransactionType.regularAndTax => "51"
       case Elixirs.TransactionType.insurance => "51"
