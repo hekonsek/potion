@@ -14,7 +14,7 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
   val paymentOrderRecordGenerator = new DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver)
 
   test("Should generate example from ING specification.") {
-    val ingReferenceExample = fromInputStream(getClass.getResourceAsStream("potion/elixirzero/ing_elixir_example.txt")).getLines().next()
+    val ingReferenceExample = fromInputStream(getClass.getResourceAsStream("ing_elixir_example.txt")).getLines().next()
     val paymentOrder = PaymentOrder(
       transactionType = 110,
       dateOfPayment = paymentOrderDateFormat.parse("20040510"),

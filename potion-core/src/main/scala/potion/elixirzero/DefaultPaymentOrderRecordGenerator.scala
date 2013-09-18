@@ -1,6 +1,7 @@
 package potion.elixirzero
 
 import System.nanoTime
+import Elixirs._
 
 class DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver: TransactionTypeChecksumResolver)
   extends PaymentOrderRecordGenerator {
