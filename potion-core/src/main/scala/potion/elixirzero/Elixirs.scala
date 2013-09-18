@@ -22,4 +22,10 @@ object Elixirs {
     val paymentOrder = Value(210)
   }
 
+  object PaymentSystem extends Enumeration {
+    type PaymentSystem = Value
+
+    val elixir0, elixirExpress, sorbnet = Value
+  }
+
 }

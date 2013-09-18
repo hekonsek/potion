@@ -15,7 +15,8 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
 
   test("Should generate example from ING specification.") {
     val ingReferenceExample = fromInputStream(getClass.getResourceAsStream("ing_elixir_example.txt")).getLines().next()
-    val paymentOrder = PaymentOrder(
+    val paymentOrder = GenericPaymentOrder(
+      paymentSystem = PaymentSystem.elixir0,
       transactionType = TransactionType.regularAndTax,
       dateOfPayment = paymentOrderDateFormat.parse("20040510"),
       amount = 403595,
@@ -36,7 +37,8 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
 
   test("Should generate Sorbnet example #1.") {
     val sorbnetReferenceExample = fromInputStream(getClass.getResourceAsStream("sorbnet_example_01.txt")).getLines().next()
-    val paymentOrder = PaymentOrder(
+    val paymentOrder = GenericPaymentOrder(
+      paymentSystem = PaymentSystem.sorbnet,
       transactionType = TransactionType.regularAndTax,
       dateOfPayment = paymentOrderDateFormat.parse("20130701"),
       amount = 45000000,
@@ -47,8 +49,7 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
       receiverNameAndAddress = Seq("JOHN FOO", "BAR STREET ", "CRACOW 02-321"),
       receiverBankSettlementNumber = 33301222,
       descriptionOfPayment = Seq("Some", "money for you", "to buy new shoes"),
-      clientCorrelationId = Some("clientId"),
-      sorbnet = true
+      clientCorrelationId = Some("clientId")
     )
 
     expectResult(sorbnetReferenceExample) {
@@ -58,7 +59,8 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
 
   test("Should generate Sorbnet example #2.") {
     val sorbnetReferenceExample = fromInputStream(getClass.getResourceAsStream("sorbnet_example_02.txt")).getLines().next()
-    val paymentOrder = PaymentOrder(
+    val paymentOrder = GenericPaymentOrder(
+      paymentSystem = PaymentSystem.sorbnet,
       transactionType = TransactionType.regularAndTax,
       dateOfPayment = paymentOrderDateFormat.parse("20130701"),
       amount = 47498966,
@@ -69,11 +71,25 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
       receiverNameAndAddress = Seq("  CUSTOMER", "STREET", "CITY 12-345"),
       receiverBankSettlementNumber = 11101214,
       descriptionOfPayment = Seq("Some go", "od reason", "to pay money"),
-      clientCorrelationId = Some("clientId"),
-      sorbnet = true
+      clientCorrelationId = Some("clientId")
     )
 
     expectResult(sorbnetReferenceExample) {
+      paymentOrderRecordGenerator.generate(paymentOrder)
+    }
+  }
+
+  test("Should generate Elixir Express example #1.") {
+    val elixirExpressExample = fromInputStream(getClass.getResourceAsStream("elixirexpress_example_01.txt")).getLines().next()
+    val paymentOrder = ElixirExpressPaymentOrder(
+      amount = 87024,
+      receiverNameAndAddress = Seq("NAME ", "STREET 12", "WARSAW 12-123"),
+      senderBankAccountNumber = "29105946581000002201994791",
+      receiverBankAccountNumber = "07102212754001209092338632",
+      descriptionOfPayment = Seq("Description", "of the payment,", "and so forth")
+    )
+
+    expectResult(elixirExpressExample) {
       paymentOrderRecordGenerator.generate(paymentOrder)
     }
   }

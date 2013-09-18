@@ -6,23 +6,36 @@ import Elixirs._
 class DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver: TransactionTypeChecksumResolver)
   extends PaymentOrderRecordGenerator {
 
-  def generate(paymentOrder: PaymentOrder): String = Seq(
-    paymentOrder.transactionType.id,
-    paymentOrderDateFormat.format(paymentOrder.dateOfPayment),
-    paymentOrder.amount,
-    paymentOrder.senderBankSettlementNumber,
-    0,
-    quotes(paymentOrder.senderBankAccountNumber),
-    quotes(paymentOrder.receiverBankAccountNumber),
-    quotes(multiLine(paymentOrder.senderNameAndAddress)),
-    quotes(multiLine(paymentOrder.receiverNameAndAddress)),
-    0,
-    paymentOrder.receiverBankSettlementNumber,
-    paymentDescription(paymentOrder),
-    quotes(""), quotes(""),
-    quotes(transactionTypeChecksumResolver.transactionTypeChecksum(paymentOrder.transactionType)),
-    quotes(paymentOrder.clientCorrelationId.getOrElse(nanoTime))
-  ) mkString recordFieldsSeparator
+  def generate(paymentOrder: PaymentOrder): String = {
+    val paymentRecords = paymentOrder match {
+      case order: GenericPaymentOrder => Seq(
+        order.transactionType.id,
+        paymentOrderDateFormat.format(order.dateOfPayment),
+        order.amount,
+        order.senderBankSettlementNumber,
+        0,
+        quotes(order.senderBankAccountNumber),
+        quotes(order.receiverBankAccountNumber),
+        quotes(multiLine(order.senderNameAndAddress)),
+        quotes(multiLine(order.receiverNameAndAddress)),
+        0,
+        order.receiverBankSettlementNumber,
+        paymentDescription(order),
+        quotes(""), quotes(""),
+        quotes(transactionTypeChecksumResolver.transactionTypeChecksum(order.transactionType)),
+        quotes(order.clientCorrelationId.getOrElse(nanoTime))
+      )
+
+      case order: ElixirExpressPaymentOrder => Seq(
+        order.amount,
+        multiLine(order.receiverNameAndAddress),
+        order.senderBankAccountNumber,
+        order.receiverBankAccountNumber,
+        multiLine(order.descriptionOfPayment)
+      )
+    }
+    paymentRecords.mkString(recordFieldsSeparator)
+  }
 
   // Generator helpers
 
@@ -32,10 +45,10 @@ class DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver: Transa
   private def multiLine(lines: Seq[String]): String =
     lines.mkString(multiLineSeparator)
 
-  private def paymentDescription(paymentOrder: PaymentOrder): String = {
-    val descriptionLines = paymentOrder.sorbnet match {
-      case true => paymentOrder.descriptionOfPayment :+ sorbnetIdentifier
-      case false => paymentOrder.descriptionOfPayment
+  private def paymentDescription(paymentOrder: GenericPaymentOrder): String = {
+    val descriptionLines = paymentOrder.paymentSystem match {
+      case PaymentSystem.sorbnet => paymentOrder.descriptionOfPayment :+ sorbnetIdentifier
+      case _ => paymentOrder.descriptionOfPayment
     }
     quotes(multiLine(descriptionLines))
   }
