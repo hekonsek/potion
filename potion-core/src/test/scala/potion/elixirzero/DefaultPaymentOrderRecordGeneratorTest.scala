@@ -34,4 +34,26 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
     }
   }
 
+  test("Should generate Sorbnet example #1.") {
+    val sorbnetReferenceExample = fromInputStream(getClass.getResourceAsStream("sorbnet_example_01.txt")).getLines().next()
+    val paymentOrder = PaymentOrder(
+      transactionType = 110,
+      dateOfPayment = paymentOrderDateFormat.parse("20130701"),
+      amount = 45000000,
+      senderBankSettlementNumber = 10501038,
+      senderBankAccountNumber = "29105010382000002202994792",
+      receiverBankAccountNumber = "27105012141020009022338232",
+      senderNameAndAddress = Seq("FOO BANK SA", "FOO STREET 132", "01-633 CRACOW"),
+      receiverNameAndAddress = Seq("JOHN FOO", "BAR STREET ", "CRACOW 02-321"),
+      receiverBankSettlementNumber = 33301222,
+      descriptionOfPayment = Seq("Some", "money for you", "to buy new shoes", "SORBNET"),
+      clientCorrelationId = Some("clientId")
+    )
+
+    expectResult(sorbnetReferenceExample) {
+      paymentOrderRecordGenerator.generate(paymentOrder)
+    }
+  }
+
+
 }
