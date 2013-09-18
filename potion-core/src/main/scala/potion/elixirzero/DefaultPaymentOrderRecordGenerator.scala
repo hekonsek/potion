@@ -12,6 +12,14 @@ class DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver: Transa
   private def multiLine(lines: Seq[String]): String =
     lines.mkString(multiLineSeparator)
 
+  private def sorbnetDescription(paymentOrder: PaymentOrder): String = {
+    val descriptionLines = paymentOrder.sorbnet match {
+      case true => paymentOrder.descriptionOfPayment :+ "SORBNET"
+      case false => paymentOrder.descriptionOfPayment
+    }
+    quotes(multiLine(descriptionLines))
+  }
+
   def generate(paymentOrder: PaymentOrder): String = Seq(
     paymentOrder.transactionType,
     paymentOrderDateFormat.format(paymentOrder.dateOfPayment),
@@ -24,7 +32,7 @@ class DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver: Transa
     quotes(multiLine(paymentOrder.receiverNameAndAddress)),
     0,
     paymentOrder.receiverBankSettlementNumber,
-    quotes(multiLine(paymentOrder.descriptionOfPayment)),
+    sorbnetDescription(paymentOrder),
     quotes(""), quotes(""),
     quotes(transactionTypeChecksumResolver.transactionTypeChecksum(paymentOrder.transactionType)),
     quotes(paymentOrder.clientCorrelationId.getOrElse(nanoTime))

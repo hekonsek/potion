@@ -46,8 +46,9 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
       senderNameAndAddress = Seq("FOO BANK SA", "FOO STREET 132", "01-633 CRACOW"),
       receiverNameAndAddress = Seq("JOHN FOO", "BAR STREET ", "CRACOW 02-321"),
       receiverBankSettlementNumber = 33301222,
-      descriptionOfPayment = Seq("Some", "money for you", "to buy new shoes", "SORBNET"),
-      clientCorrelationId = Some("clientId")
+      descriptionOfPayment = Seq("Some", "money for you", "to buy new shoes"),
+      clientCorrelationId = Some("clientId"),
+      sorbnet = true
     )
 
     expectResult(sorbnetReferenceExample) {
