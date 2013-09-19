@@ -3,6 +3,7 @@ package potion.elixirzero
 import potion.elixirzero.Elixirs.TransactionType.TransactionType
 
 class TaxUnawareTransactionTypeChecksumResolver extends TransactionTypeChecksumResolver {
+  ()
 
   def transactionTypeChecksum(transactionType: TransactionType): String =
     transactionType match {
@@ -12,4 +13,8 @@ class TaxUnawareTransactionTypeChecksumResolver extends TransactionTypeChecksumR
       case _ => throw new IllegalArgumentException("Unknown transaction type: " + transactionType)
     }
 
+}
+
+object TaxUnawareTransactionTypeChecksumResolver {
+  def apply() = new TaxUnawareTransactionTypeChecksumResolver()
 }
