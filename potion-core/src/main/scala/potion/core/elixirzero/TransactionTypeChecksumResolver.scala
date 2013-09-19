@@ -1,6 +1,7 @@
-package potion.elixirzero
+package potion.core.elixirzero
 
-import potion.elixirzero.Elixirs.TransactionType.TransactionType
+import potion.core.elixirzero.ElixirZeros.TransactionType.TransactionType
+
 
 trait TransactionTypeChecksumResolver {
 

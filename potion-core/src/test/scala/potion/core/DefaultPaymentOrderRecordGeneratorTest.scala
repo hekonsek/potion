@@ -1,10 +1,12 @@
-package potion.elixirzero
+package potion.core
 
 import org.scalatest.FunSuite
 import scala.io.Source.fromInputStream
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import Elixirs._
+import potion.core.elixirzero.{ElixirZeros, GenericPaymentOrder, TaxUnawareTransactionTypeChecksumResolver}
+import ElixirZeros._
+import potion.core.elixirexpress.{ElixirExpressPaymentOrder, ElixirExpresses}
 
 @RunWith(classOf[JUnitRunner])
 class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
@@ -13,7 +15,9 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
 
   val transactionTypeChecksumResolver = TaxUnawareTransactionTypeChecksumResolver()
 
-  val paymentOrderRecordGenerator = new DefaultPaymentOrderRecordGenerator(transactionTypeChecksumResolver)
+  val paymentRecordHandlers = ElixirExpresses.recordGenerator orElse ElixirZeros.recordGenerator(transactionTypeChecksumResolver)
+
+  val paymentOrderRecordGenerator = new DefaultPaymentOrderRecordGenerator(paymentRecordHandlers)
 
   // Tests
 

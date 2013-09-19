@@ -1,6 +1,7 @@
-package potion.elixirzero
+package potion.core.elixirexpress
 
-import potion.elixirzero.Elixirs.PaymentSystem
+import potion.core.PaymentOrder
+import potion.core.PaymentSystem.{PaymentSystem, elixirExpress}
 
 
 case class ElixirExpressPaymentOrder(amount: Long,
@@ -9,6 +10,6 @@ case class ElixirExpressPaymentOrder(amount: Long,
                                      receiverNameAndAddress: Seq[String],
                                      descriptionOfPayment: Seq[String]) extends PaymentOrder {
 
-  def paymentSystem: PaymentSystem.PaymentSystem = PaymentSystem.elixirExpress
+  def paymentSystem: PaymentSystem = elixirExpress
 
 }

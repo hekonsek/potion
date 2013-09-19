@@ -1,15 +1,16 @@
-package potion.elixirzero
+package potion.core.elixirzero
 
-import potion.elixirzero.Elixirs.TransactionType.TransactionType
+import potion.core.elixirzero.ElixirZeros.TransactionType.TransactionType
+
 
 class TaxUnawareTransactionTypeChecksumResolver extends TransactionTypeChecksumResolver {
   ()
 
   def transactionTypeChecksum(transactionType: TransactionType): String =
     transactionType match {
-      case Elixirs.TransactionType.regularAndTax => "51"
-      case Elixirs.TransactionType.insurance => "51"
-      case Elixirs.TransactionType.paymentOrder => "01"
+      case ElixirZeros.TransactionType.regularAndTax => "51"
+      case ElixirZeros.TransactionType.insurance => "51"
+      case ElixirZeros.TransactionType.paymentOrder => "01"
       case _ => throw new IllegalArgumentException("Unknown transaction type: " + transactionType)
     }
 

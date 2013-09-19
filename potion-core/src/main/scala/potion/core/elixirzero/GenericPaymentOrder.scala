@@ -1,9 +1,10 @@
-package potion.elixirzero
+package potion.core.elixirzero
 
 import java.util.Date
-import potion.elixirzero.Elixirs.PaymentSystem
-import potion.elixirzero.Elixirs.TransactionType.TransactionType
-import potion.elixirzero.Elixirs.PaymentSystem.PaymentSystem
+import potion.core.{PaymentSystem, PaymentOrder}
+import potion.core.elixirexpress.ElixirExpressPaymentOrder
+import potion.core.elixirzero.ElixirZeros.TransactionType.TransactionType
+import potion.core.PaymentSystem.PaymentSystem
 
 case class GenericPaymentOrder(paymentSystem: PaymentSystem,
                                transactionType: TransactionType,
