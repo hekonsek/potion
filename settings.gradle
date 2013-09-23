@@ -1,1 +1,1 @@
-include 'potion-core'
+include 'potion-core', 'potion-camel'

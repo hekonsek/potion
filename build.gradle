@@ -1,3 +1,7 @@
+allprojects {
+    apply plugin: 'propdeps-idea'
+}
+
 subprojects {
     // Maven compatibility
     apply plugin: 'maven'
@@ -15,6 +19,7 @@ subprojects {
         compile 'org.scala-lang:scala-library:2.10.2'
         compile 'org.slf4j:slf4j-api:1.7.5'
 
+        testCompile 'com.google.guava:guava:15.0'
         testCompile 'junit:junit:4.11'
         testCompile 'org.scalatest:scalatest_2.10:1.9.1'
         testCompile 'org.mockito:mockito-core:1.9.5'
@@ -23,6 +28,15 @@ subprojects {
 
     repositories {
         mavenCentral()
+    }
+}
+
+project('potion-camel') {
+    dependencies {
+        compile project(':potion-core')
+        compile 'org.apache.camel:camel-core:2.12.0'
+
+        testCompile 'org.apache.camel:camel-test:2.12.0'
     }
 }
 
