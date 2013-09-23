@@ -1,7 +1,6 @@
 package potion.camel.dataformat
 
 import org.apache.camel.test.junit4.CamelTestSupport
-import org.apache.camel.builder.RouteBuilder
 import potion.core.PaymentSystem
 import potion.core.elixirzero.{ElixirZeros, TaxUnawareTransactionTypeChecksumResolver}
 import potion.core.elixirexpress.ElixirExpresses
@@ -12,8 +11,9 @@ import potion.core.DefaultPaymentOrderRecordGenerator
 import potion.core.elixirzero.GenericPaymentOrder
 import scala.Some
 import com.google.common.collect.Lists.newArrayList
+import org.apache.camel.scala.dsl.builder.{RouteBuilder => ScalaRouteBuilder, RouteBuilderSupport}
 
-class PaymentOrderDataFormatTest extends CamelTestSupport {
+class PaymentOrderDataFormatTest extends CamelTestSupport with RouteBuilderSupport {
 
   // Collaborators fixture
 
@@ -23,13 +23,13 @@ class PaymentOrderDataFormatTest extends CamelTestSupport {
 
   val paymentOrderRecordGenerator = new DefaultPaymentOrderRecordGenerator(paymentRecordHandlers)
 
+  val paymentDataFormat = new PaymentOrderDataFormat(paymentOrderRecordGenerator)
+
   // Route fixtures
 
-  override def createRouteBuilder(): RouteBuilder =
-    new RouteBuilder() {
-      def configure() {
-        from("direct:test").marshal(new PaymentOrderDataFormat(paymentOrderRecordGenerator)).to("mock:test")
-      }
+  override def createRouteBuilder() =
+    new ScalaRouteBuilder() {
+      from("direct:test").marshal(paymentDataFormat).to("mock:test")
     }
 
   // Tests
