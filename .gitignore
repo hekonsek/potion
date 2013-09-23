@@ -1,6 +1,7 @@
 # IntelliJ Idea
 .idea
 *.ipr
+*.iws
 **.iml
 
 # Gradle
