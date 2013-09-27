@@ -15,6 +15,10 @@ subprojects {
     apply plugin: 'propdeps'
     apply plugin: 'propdeps-maven'
 
+    ext {
+        camelVersion = '2.12.0'
+    }
+
     dependencies {
         compile 'org.scala-lang:scala-library:2.10.2'
         compile 'org.slf4j:slf4j-api:1.7.5'
@@ -28,17 +32,27 @@ subprojects {
 
     repositories {
         mavenCentral()
+        mavenLocal()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
 }
 
 project('potion-camel') {
     dependencies {
         compile project(':potion-core')
-        compile 'org.apache.camel:camel-core:2.12.0'
-        testCompile 'org.apache.camel:camel-scala:2.12.0'
+        compile "org.apache.camel:camel-core:$camelVersion"
 
+        testCompile "org.apache.camel:camel-scala:$camelVersion"
+        testCompile "org.apache.camel:camel-test:$camelVersion"
+    }
+}
 
-        testCompile 'org.apache.camel:camel-test:2.12.0'
+project('potion-microon') {
+    dependencies {
+        compile project(':potion-core')
+        compile project(':potion-camel')
+        compile 'com.github.microon:microon-spi-scala:0.1-SNAPSHOT'
+        compile "org.apache.camel:camel-scala:$camelVersion"
     }
 }
 

@@ -9,7 +9,7 @@ import potion.core.{PaymentOrder, PaymentOrderRecordGenerator}
 class PaymentOrderDataFormat(paymentOrderRecordGenerator: PaymentOrderRecordGenerator) extends DataFormat {
 
   def marshal(exchange: Exchange, graph: scala.Any, stream: OutputStream) {
-    val records = graph.asInstanceOf[java.lang.Iterable[PaymentOrder]]
+    val records = exchange.getContext.getTypeConverter.convertTo(classOf[java.lang.Iterable[PaymentOrder]], graph)
     records.iterator.foreach(order => stream.write((paymentOrderRecordGenerator.generate(order) + "\n").getBytes))
   }
 
