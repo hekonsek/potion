@@ -44,5 +44,4 @@ class DefaultMt940ParserTest extends FunSuite {
     }
   }
 
-
 }
