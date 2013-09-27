@@ -3,6 +3,7 @@ package potion.core.statement.mt940
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.FunSuite
+import Mt940s.transactionDateFormat
 import scala.io.Source._
 
 @RunWith(classOf[JUnitRunner])
@@ -22,6 +23,8 @@ class DefaultMt940ParserTest extends FunSuite {
 
   val statementSequenceNumber = 129
 
+  val transactionDate = transactionDateFormat.parse("0122")
+
   val transactionId = 97201080012L
 
   // Tests
@@ -35,6 +38,12 @@ class DefaultMt940ParserTest extends FunSuite {
   test("Should parse statement sequence number.") {
     expectResult(statementSequenceNumber) {
       mt940.statementSequenceNumber
+    }
+  }
+
+  test("Should parse transaction date.") {
+    expectResult(transactionDate) {
+      mt940.transactionRecords.head.transactionDate
     }
   }
 
