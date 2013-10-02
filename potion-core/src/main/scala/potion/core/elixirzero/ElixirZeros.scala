@@ -17,14 +17,6 @@ object ElixirZeros {
 
   val sorbnetIdentifier = "SORBNET"
 
-  object TransactionType extends Enumeration {
-    type TransactionType = Value
-
-    val regularAndTax = Value(110)
-    val insurance = Value(120)
-    val paymentOrder = Value(210)
-  }
-
   def recordGenerator(transactionTypeChecksumResolver: TransactionTypeChecksumResolver): PartialFunction[PaymentOrder, Seq[Any]] = {
     case order: GenericPaymentOrder => Seq(
       order.transactionType.id,

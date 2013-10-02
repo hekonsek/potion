@@ -47,10 +47,10 @@ class PaymentOrderDataFormatTest extends CamelTestSupport with RouteBuilderSuppo
       senderBankSettlementNumber = 10501038,
       senderBankAccountNumber = "29105010381000002201994791",
       receiverBankAccountNumber = "40109018700000000100198454",
-      senderNameAndAddress = Seq("NAZWA_STRONY_ZLECAJACEJ", "RESZTA_NAZWY", "ULICA_STRONY_ZLECAJACEJ", "MIASTO_STRONY_ZLECAJACEJ"),
-      receiverNameAndAddress = Seq("NAZWA_KONTRAHENTA", "RESZTA_NAZWY", "UL._KONTRAHENTA", "MIASTO_KONTRAHENTA"),
+      senderNameAndAddress = Array("NAZWA_STRONY_ZLECAJACEJ", "RESZTA_NAZWY", "ULICA_STRONY_ZLECAJACEJ", "MIASTO_STRONY_ZLECAJACEJ"),
+      receiverNameAndAddress = Array("NAZWA_KONTRAHENTA", "RESZTA_NAZWY", "UL._KONTRAHENTA", "MIASTO_KONTRAHENTA"),
       receiverBankSettlementNumber = 10901870,
-      descriptionOfPayment = Seq("OPIS_PLATNOSCI_1", "OPIS_PLATNOSCI_2", "", ""),
+      descriptionOfPayment = Array("OPIS_PLATNOSCI_1", "OPIS_PLATNOSCI_2", "", ""),
       clientCorrelationId = Some("CLIENTID")
     )
     getMockEndpoint("mock:test").expectedBodiesReceived(expectedFile)

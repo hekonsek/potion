@@ -27,10 +27,10 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
       senderBankSettlementNumber = 10501038,
       senderBankAccountNumber = "29105010381000002201994791",
       receiverBankAccountNumber = "40109018700000000100198454",
-      senderNameAndAddress = Seq("NAZWA_STRONY_ZLECAJACEJ", "RESZTA_NAZWY", "ULICA_STRONY_ZLECAJACEJ", "MIASTO_STRONY_ZLECAJACEJ"),
-      receiverNameAndAddress = Seq("NAZWA_KONTRAHENTA", "RESZTA_NAZWY", "UL._KONTRAHENTA", "MIASTO_KONTRAHENTA"),
+      senderNameAndAddress = Array("NAZWA_STRONY_ZLECAJACEJ", "RESZTA_NAZWY", "ULICA_STRONY_ZLECAJACEJ", "MIASTO_STRONY_ZLECAJACEJ"),
+      receiverNameAndAddress = Array("NAZWA_KONTRAHENTA", "RESZTA_NAZWY", "UL._KONTRAHENTA", "MIASTO_KONTRAHENTA"),
       receiverBankSettlementNumber = 10901870,
-      descriptionOfPayment = Seq("OPIS_PLATNOSCI_1", "OPIS_PLATNOSCI_2", "", ""),
+      descriptionOfPayment = Array("OPIS_PLATNOSCI_1", "OPIS_PLATNOSCI_2", "", ""),
       clientCorrelationId = Some("CLIENTID")
     )
 
@@ -49,10 +49,10 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
       senderBankSettlementNumber = 10501038,
       senderBankAccountNumber = "29105010382000002202994792",
       receiverBankAccountNumber = "27105012141020009022338232",
-      senderNameAndAddress = Seq("FOO BANK SA", "FOO STREET 132", "01-633 CRACOW"),
-      receiverNameAndAddress = Seq("JOHN FOO", "BAR STREET ", "CRACOW 02-321"),
+      senderNameAndAddress = Array("FOO BANK SA", "FOO STREET 132", "01-633 CRACOW"),
+      receiverNameAndAddress = Array("JOHN FOO", "BAR STREET ", "CRACOW 02-321"),
       receiverBankSettlementNumber = 33301222,
-      descriptionOfPayment = Seq("Some", "money for you", "to buy new shoes"),
+      descriptionOfPayment = Array("Some", "money for you", "to buy new shoes"),
       clientCorrelationId = Some("clientId")
     )
 
@@ -71,10 +71,10 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
       senderBankSettlementNumber = 10554038,
       senderBankAccountNumber = "29105015781000011201994541",
       receiverBankAccountNumber = "07157012211004609098938672",
-      senderNameAndAddress = Seq("BANK BANK INC", "BANK STREET 666", "66-321 CRACOW"),
-      receiverNameAndAddress = Seq("  CUSTOMER", "STREET", "CITY 12-345"),
+      senderNameAndAddress = Array("BANK BANK INC", "BANK STREET 666", "66-321 CRACOW"),
+      receiverNameAndAddress = Array("  CUSTOMER", "STREET", "CITY 12-345"),
       receiverBankSettlementNumber = 11101214,
-      descriptionOfPayment = Seq("Some go", "od reason", "to pay money"),
+      descriptionOfPayment = Array("Some go", "od reason", "to pay money"),
       clientCorrelationId = Some("clientId")
     )
 
@@ -93,10 +93,10 @@ class DefaultPaymentOrderRecordGeneratorTest extends FunSuite {
       senderBankSettlementNumber = 12201038,
       senderBankAccountNumber = "29105033381011002201994791",
       receiverBankAccountNumber = "07105222141011009112338632",
-      senderNameAndAddress = Seq("BANK INC", "FOO STRT", "11-222 WARSAW"),
-      receiverNameAndAddress = Seq("SOME DUDE", "BAR STREET 1 ", "CRACOW 12-345"),
+      senderNameAndAddress = Array("BANK INC", "FOO STRT", "11-222 WARSAW"),
+      receiverNameAndAddress = Array("SOME DUDE", "BAR STREET 1 ", "CRACOW 12-345"),
       receiverBankSettlementNumber = 10501214,
-      descriptionOfPayment = Seq("TITLE OF", "THIS SIMPLE,", "BUT VITAL EXAMPLE"),
+      descriptionOfPayment = Array("TITLE OF", "THIS SIMPLE,", "BUT VITAL EXAMPLE"),
       clientCorrelationId = Some("correlationId")
     )
 
