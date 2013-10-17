@@ -27,6 +27,8 @@ class DefaultMt940ParserTest extends FunSuite {
 
   val transactionId = 97201080012L
 
+  val transactionCode = "076"
+
   // Tests
 
   test("Should parse statement IBAN.") {
@@ -52,5 +54,12 @@ class DefaultMt940ParserTest extends FunSuite {
       mt940.transactionRecords.head.transactionId
     }
   }
+
+  test("Should parse transaction code from transaction description.") {
+    expectResult(transactionCode) {
+      mt940.transactionDescriptionRecords.head.transactionCode
+    }
+  }
+
 
 }

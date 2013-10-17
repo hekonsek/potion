@@ -5,7 +5,7 @@ import org.apache.camel.impl.DefaultCamelContext
 import potion.core.PaymentSystem
 import potion.core.elixirzero.ElixirZeros._
 import scala.io.Source._
-import potion.core.elixirzero.GenericPaymentOrder
+import potion.core.elixirzero.{TransactionType, GenericPaymentOrder}
 import scala.Some
 
 class CamelPaymentOrderServiceTest extends FunSuite {

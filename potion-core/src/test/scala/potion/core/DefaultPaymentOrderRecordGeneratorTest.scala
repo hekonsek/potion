@@ -4,7 +4,7 @@ import org.scalatest.FunSuite
 import scala.io.Source.fromInputStream
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import potion.core.elixirzero.{ElixirZeros, GenericPaymentOrder}
+import potion.core.elixirzero.{TransactionType, ElixirZeros, GenericPaymentOrder}
 import ElixirZeros._
 import potion.core.elixirexpress.ElixirExpressPaymentOrder
 

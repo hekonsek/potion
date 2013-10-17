@@ -2,13 +2,12 @@ package potion.camel.dataformat
 
 import org.apache.camel.test.junit4.CamelTestSupport
 import potion.core.PaymentSystem
-import potion.core.elixirzero.{ElixirZeros, TaxUnawareTransactionTypeChecksumResolver}
+import potion.core.elixirzero.{TransactionType, ElixirZeros, TaxUnawareTransactionTypeChecksumResolver, GenericPaymentOrder}
 import potion.core.elixirexpress.ElixirExpresses
 import potion.core.elixirzero.ElixirZeros._
 import org.junit.Test
 import scala.io.Source._
 import potion.core.DefaultPaymentOrderRecordGenerator
-import potion.core.elixirzero.GenericPaymentOrder
 import scala.Some
 import com.google.common.collect.Lists.newArrayList
 import org.apache.camel.scala.dsl.builder.{RouteBuilder => ScalaRouteBuilder, RouteBuilderSupport}

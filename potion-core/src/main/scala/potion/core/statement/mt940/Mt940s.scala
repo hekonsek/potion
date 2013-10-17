@@ -12,4 +12,10 @@ object Mt940s {
 
   val transactionDateEndIndex = 10
 
+  val initRecordPrefix = "20"
+
+  val transactionDescriptionRecordPrefix = "86"
+
+  val transactionDecriptionCodeSubrecordPrefix = "~00"
+
 }
