@@ -16,6 +16,8 @@ object Mt940s {
 
   val transactionDescriptionRecordPrefix = "86"
 
-  val transactionDecriptionCodeSubrecordPrefix = "~00"
+  val transactionDecriptionCodeSubrecordPrefix = "00"
+
+  val contractorIbanRecordPrefix = "29"
 
 }

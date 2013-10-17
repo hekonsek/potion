@@ -5,4 +5,7 @@ case class Mt940TransactionDescriptionRecord(lines: Map[String, String]) extends
   val transactionCode: String =
     lines(Mt940s.transactionDescriptionRecordPrefix).substring(0, 3)
 
+  val contractorIban: String =
+    lines(Mt940s.contractorIbanRecordPrefix).substring(0, 26)
+
 }
