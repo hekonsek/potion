@@ -37,13 +37,13 @@ class DefaultMt940ParserTest extends FunSuite {
 
   test("Should parse statement IBAN.") {
     expectResult(statementIban) {
-      mt940.statementIban
+      mt940.header.statementIban
     }
   }
 
   test("Should parse statement sequence number.") {
     expectResult(statementSequenceNumber) {
-      mt940.statementSequenceNumber
+      mt940.header.statementSequenceNumber
     }
   }
 

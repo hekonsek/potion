@@ -16,6 +16,8 @@ object Mt940s {
 
   val transactionValueStartIndex = 11
 
+  val statementIbanPrefix = "25"
+
   val initRecordPrefix = "20"
 
   val transactionRecordPrefix = "61"
