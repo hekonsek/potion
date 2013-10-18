@@ -16,7 +16,7 @@ subprojects {
     apply plugin: 'propdeps-maven'
 
     ext {
-        camelVersion = '2.12.0'
+        camelVersion = '2.12.1'
     }
 
     dependencies {
