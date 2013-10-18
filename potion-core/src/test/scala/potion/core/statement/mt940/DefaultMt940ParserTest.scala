@@ -13,7 +13,7 @@ class DefaultMt940ParserTest extends FunSuite {
 
   val mt940Parser = Mt940Parser.buildDefault
 
-  val mt940text = fromInputStream(getClass.getResourceAsStream("mt940.txt")).getLines().mkString("\n")
+  val mt940text = fromInputStream(getClass.getResourceAsStream("mt940_ing_example1_outgoing_within_poland.txt")).getLines().mkString("\n")
 
   val mt940 = mt940Parser.parse(mt940text)
 
