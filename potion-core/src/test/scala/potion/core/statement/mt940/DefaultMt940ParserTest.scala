@@ -25,6 +25,8 @@ class DefaultMt940ParserTest extends FunSuite {
 
   val transactionDate = transactionDateFormat.parse("0122")
 
+  val transactionValue = BigDecimal(1.2)
+
   val transactionId = 97201080012L
 
   val transactionCode = "076"
@@ -48,6 +50,12 @@ class DefaultMt940ParserTest extends FunSuite {
   test("Should parse transaction date.") {
     expectResult(transactionDate) {
       mt940.transactionRecords.head.transactionDate
+    }
+  }
+
+  test("Should parse transaction value.") {
+    expectResult(transactionValue) {
+      mt940.transactionRecords.head.transactionValue
     }
   }
 
