@@ -14,6 +14,10 @@ object Mt940s {
 
   val transactionDateEndIndex = 10
 
+  val balanceSignStartIndex = 10
+
+  val balanceSignEndIndex = 11
+
   val transactionValueStartIndex = 11
 
   val statementIbanPrefix = "25"

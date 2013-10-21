@@ -2,6 +2,7 @@ package potion.core.statement.mt940
 
 import java.util.Date
 import Mt940s._
+import potion.core.statement.mt940.BalanceSign._
 
 case class Mt940TransactionRecord(lines: Map[String, String]) extends Mt940Record {
 
@@ -9,6 +10,12 @@ case class Mt940TransactionRecord(lines: Map[String, String]) extends Mt940Recor
     val transactionLine = lines(transactionRecordPrefix).trim
     val transactionDateSubstring = transactionLine.substring(transactionDateStartIndex, transactionDateEndIndex)
     transactionDateFormat.parse(transactionDateSubstring)
+  }
+
+  val balanceSign: BalanceSign = {
+    val transactionLine = lines(transactionRecordPrefix).trim
+    val signString = transactionLine.substring(balanceSignStartIndex, balanceSignEndIndex)
+    BalanceSign.withName(signString)
   }
 
   val transactionValue: BigDecimal = {
