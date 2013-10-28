@@ -126,6 +126,7 @@ project('potion-microon') {
 
 buildscript {
     repositories {
+        mavenLocal()
         maven { url 'http://repo.springsource.org/plugins-release' }
         maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
     }
