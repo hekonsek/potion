@@ -31,6 +31,8 @@ class DefaultMt940ParserTest extends FunSuite {
 
   val transactionId = 97201080012L
 
+  val simpId = "555000000006275"
+
   val transactionCode = "076"
 
   val contractorIban = "19114020040000350230599137"
@@ -70,6 +72,12 @@ class DefaultMt940ParserTest extends FunSuite {
   test("Should parse transaction id number.") {
     expectResult(transactionId) {
       mt940.transactionRecords.head.transactionId
+    }
+  }
+
+  test("Should parse SIMP id.") {
+    expectResult(simpId) {
+      mt940.transactionRecords.head.simpId
     }
   }
 

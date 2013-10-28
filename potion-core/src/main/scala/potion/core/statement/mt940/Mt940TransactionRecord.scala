@@ -1,7 +1,7 @@
 package potion.core.statement.mt940
 
 import java.util.Date
-import Mt940s._
+import potion.core.statement.mt940.Mt940s._
 import potion.core.statement.mt940.BalanceSign._
 
 case class Mt940TransactionRecord(lines: Map[String, String]) extends Mt940Record {
@@ -32,6 +32,12 @@ case class Mt940TransactionRecord(lines: Map[String, String]) extends Mt940Recor
     val txIdEndIndex = transactionLine.indexOf('/', txIdBeginIndex)
     val finalTxIdEndIndex = if (txIdEndIndex == -1) transactionLine.length else txIdEndIndex
     transactionLine.substring(txIdBeginIndex, finalTxIdEndIndex).toLong
+  }
+
+  val simpId: String = {
+    val transactionLine = lines(transactionRecordPrefix).trim
+    val simpIdBeginIndex = transactionLine.indexOf(transactionSimpIdPrefix) + transactionSimpIdPrefix.length
+    transactionLine.substring(simpIdBeginIndex, transactionLine.length)
   }
 
 }

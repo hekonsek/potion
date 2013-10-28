@@ -6,6 +6,8 @@ object Mt940s {
 
   val transactionOperationCodePrefix = 'S'
 
+  val transactionSimpIdPrefix = "//"
+
   val transactionDateFormatPattern = "MMdd"
 
   val transactionDateFormat = new SimpleDateFormat(transactionDateFormatPattern)
