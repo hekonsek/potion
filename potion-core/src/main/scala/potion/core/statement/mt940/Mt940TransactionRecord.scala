@@ -36,8 +36,11 @@ case class Mt940TransactionRecord(lines: Map[String, String]) extends Mt940Recor
 
   val simpId: String = {
     val transactionLine = lines(transactionRecordPrefix).trim
-    val simpIdBeginIndex = transactionLine.indexOf(transactionSimpIdPrefix) + transactionSimpIdPrefix.length
-    transactionLine.substring(simpIdBeginIndex, transactionLine.length)
+    val prefixedSimpIdStartIndex = transactionLine.indexOf(transactionSimpIdPrefix)
+    if (prefixedSimpIdStartIndex == -1)
+      ""
+    else
+      transactionLine.substring(prefixedSimpIdStartIndex + transactionSimpIdPrefix.length, transactionLine.length)
   }
 
 }

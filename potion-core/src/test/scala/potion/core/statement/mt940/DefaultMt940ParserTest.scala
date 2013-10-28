@@ -81,6 +81,14 @@ class DefaultMt940ParserTest extends FunSuite {
     }
   }
 
+  test("Should parse no SIMP id.") {
+    expectResult("") {
+      val mt940WithNoSimp = mt940text.replaceFirst("//.+\\n", "\n")
+      val mt940 = mt940Parser.parse(mt940WithNoSimp)
+      mt940.transactionRecords.head.simpId
+    }
+  }
+
   test("Should parse transaction code from transaction description.") {
     expectResult(transactionCode) {
       mt940.transactionDescriptionRecords.head.transactionCode
