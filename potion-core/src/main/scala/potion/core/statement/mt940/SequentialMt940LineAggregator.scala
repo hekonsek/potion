@@ -16,9 +16,11 @@
  */
 package potion.core.statement.mt940
 
+import scala.Some
+
 class SequentialMt940LineAggregator extends Mt940LineAggregator {
 
-  private var aggregatedHeaderRecords = Map.empty[String, String]
+  private var header = Mt940Header()
 
   private var transactionRecords = Map.empty[String, String]
 
@@ -26,10 +28,11 @@ class SequentialMt940LineAggregator extends Mt940LineAggregator {
 
   def aggregate(line: Mt940Line): Option[Mt940Record] = {
     line.code match {
-      case Mt940s.initRecordPrefix => aggregatedHeaderRecords += (line.code -> line.value); None
-      case Mt940s.statementIbanPrefix => aggregatedHeaderRecords += (line.code -> line.value); None
-      case "28C" => Some(Mt940Header(aggregatedHeaderRecords + (line.code -> line.value)))
-      case "61" => Some(Mt940TransactionRecord(transactionRecords + (line.code -> line.value)))
+      case Mt940s.initRecordPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); None
+      case Mt940s.statementIbanPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); None
+      case Mt940s.statementSequenceNumberRecordPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); None
+      case Mt940s.statementBalanceRecordPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); Some(header)
+      case "61" => Some(Mt940TransactionRecord(header, transactionRecords + (line.code -> line.value)))
       case Mt940s.transactionDescriptionRecordPrefix => transactionDescriptionRecords += (line.code -> line.value); None
       case Mt940s.transactionDecriptionCodeSubrecordPrefix => transactionDescriptionRecords += (line.code -> line.value); None
       case Mt940s.contractorIbanRecordPrefix => Some(Mt940TransactionDescriptionRecord(transactionDescriptionRecords + (line.code -> line.value)))

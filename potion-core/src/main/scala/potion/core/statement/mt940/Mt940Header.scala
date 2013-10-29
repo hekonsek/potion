@@ -17,11 +17,18 @@
 package potion.core.statement.mt940
 
 import Mt940s._
+import java.util.Date
 
-case class Mt940Header(lines: Map[String, String]) extends Mt940Record {
+case class Mt940Header(lines: Map[String, String] = Map.empty) extends Mt940Record {
 
-  val statementIban: String = lines(statementIbanPrefix).trim.substring(1)
+  lazy val statementIban: String = lines(statementIbanPrefix).trim.substring(1)
 
-  val statementSequenceNumber: Int = lines("28C").trim.toInt
+  lazy val statementSequenceNumber: Int = lines(statementSequenceNumberRecordPrefix).trim.toInt
+
+  lazy val statementTransactionDate: Date = {
+    val balanceLine = lines(statementBalanceRecordPrefix).trim
+    val statementTransactionDateString = balanceLine.substring(1, 7)
+    statementTransactionDateFormat.parse(statementTransactionDateString)
+  }
 
 }

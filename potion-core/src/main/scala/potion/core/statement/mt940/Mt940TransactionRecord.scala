@@ -4,12 +4,14 @@ import java.util.Date
 import potion.core.statement.mt940.Mt940s._
 import potion.core.statement.mt940.BalanceSign._
 
-case class Mt940TransactionRecord(lines: Map[String, String]) extends Mt940Record {
+case class Mt940TransactionRecord(header: Mt940Header, lines: Map[String, String]) extends Mt940Record {
 
   val transactionDate: Date = {
     val transactionLine = lines(transactionRecordPrefix).trim
     val transactionDateSubstring = transactionLine.substring(transactionDateStartIndex, transactionDateEndIndex)
-    transactionDateFormat.parse(transactionDateSubstring)
+    val dateWithoutYear = transactionDateFormat.parse(transactionDateSubstring)
+    dateWithoutYear.setYear(header.statementTransactionDate.getYear)
+    dateWithoutYear
   }
 
   val balanceSign: BalanceSign = {
