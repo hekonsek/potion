@@ -1,6 +1,10 @@
+import static grat.ignorable.CommonIgnoreables.*
+
 allprojects {
     apply plugin: 'grat'
     apply plugin: 'propdeps-idea'
+
+    project.ext['ignored'] += ignoreTestTextFile()
 }
 
 subprojects {
