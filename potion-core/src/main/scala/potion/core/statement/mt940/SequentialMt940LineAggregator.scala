@@ -32,10 +32,11 @@ class SequentialMt940LineAggregator extends Mt940LineAggregator {
       case Mt940s.statementIbanPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); None
       case Mt940s.statementSequenceNumberRecordPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); None
       case Mt940s.statementBalanceRecordPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); Some(header)
-      case "61" => Some(Mt940TransactionRecord(header, transactionRecords + (line.code -> line.value)))
+      case Mt940s.transactionRecordPrefix => Some(Mt940TransactionRecord(header, transactionRecords + (line.code -> line.value)))
       case Mt940s.transactionDescriptionRecordPrefix => transactionDescriptionRecords += (line.code -> line.value); None
       case Mt940s.transactionDecriptionCodeSubrecordPrefix => transactionDescriptionRecords += (line.code -> line.value); None
-      case Mt940s.contractorIbanRecordPrefix => Some(Mt940TransactionDescriptionRecord(transactionDescriptionRecords + (line.code -> line.value)))
+      case Mt940s.contractorIbanRecordPrefix => transactionDescriptionRecords += (line.code -> line.value); None
+      case Mt940s.contractorDescriptionContinuationRecordPrefix => Some(Mt940TransactionDescriptionRecord(transactionDescriptionRecords))
       case _ => None
     }
   }

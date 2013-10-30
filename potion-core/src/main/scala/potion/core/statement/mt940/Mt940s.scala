@@ -58,4 +58,6 @@ object Mt940s {
 
   val contractorIbanRecordPrefix = "29"
 
+  val contractorDescriptionContinuationRecordPrefix = "63"
+
 }
