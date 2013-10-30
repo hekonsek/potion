@@ -45,8 +45,10 @@ class DefaultMt940ParserTwoTransactionsTest extends FunSuite {
 
   val secondBalanceSign = BalanceSign.debit
 
-  //  val transactionValue = BigDecimal(1.2)
-  //
+  val firstTransactionValue = BigDecimal(2233.22)
+
+  val secondTransactionValue = BigDecimal(3312.33)
+
   //  val transactionId = 97201080012L
   //
   //  val simpId = "555000000006275"
@@ -106,12 +108,18 @@ class DefaultMt940ParserTwoTransactionsTest extends FunSuite {
     }
   }
 
-  //  test("Should parse transaction value.") {
-  //    expectResult(transactionValue) {
-  //      mt940.transactionRecords.head.transactionValue
-  //    }
-  //  }
-  //
+  test("Should parse the first transaction value.") {
+    expectResult(firstTransactionValue) {
+      mt940.transactionRecords.head.transactionValue
+    }
+  }
+
+  test("Should the second transaction value.") {
+    expectResult(secondTransactionValue) {
+      mt940.transactionRecords.last.transactionValue
+    }
+  }
+
   //  test("Should parse transaction id number.") {
   //    expectResult(transactionId) {
   //      mt940.transactionRecords.head.transactionId
