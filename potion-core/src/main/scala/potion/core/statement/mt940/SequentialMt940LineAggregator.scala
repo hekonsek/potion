@@ -17,6 +17,7 @@
 package potion.core.statement.mt940
 
 import scala.Some
+import Mt940s._
 
 class SequentialMt940LineAggregator extends Mt940LineAggregator {
 
@@ -28,15 +29,15 @@ class SequentialMt940LineAggregator extends Mt940LineAggregator {
 
   def aggregate(line: Mt940Line): Option[Mt940Record] = {
     line.code match {
-      case Mt940s.initRecordPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); None
-      case Mt940s.statementIbanPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); None
-      case Mt940s.statementSequenceNumberRecordPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); None
-      case Mt940s.statementBalanceRecordPrefix => header = header.copy(lines = header.lines + (line.code -> line.value)); Some(header)
-      case Mt940s.transactionRecordPrefix => Some(Mt940TransactionRecord(header, transactionRecords + (line.code -> line.value)))
-      case Mt940s.transactionDescriptionRecordPrefix => transactionDescriptionRecords += (line.code -> line.value); None
-      case Mt940s.transactionDecriptionCodeSubrecordPrefix => transactionDescriptionRecords += (line.code -> line.value); None
-      case Mt940s.contractorIbanRecordPrefix => transactionDescriptionRecords += (line.code -> line.value); None
-      case Mt940s.contractorDescriptionContinuationRecordPrefix => Some(Mt940TransactionDescriptionRecord(transactionDescriptionRecords))
+      case `initRecordPrefix` => header = header.copy(lines = header.lines + (line.code -> line.value)); None
+      case `statementIbanPrefix` => header = header.copy(lines = header.lines + (line.code -> line.value)); None
+      case `statementSequenceNumberRecordPrefix` => header = header.copy(lines = header.lines + (line.code -> line.value)); None
+      case `statementBalanceRecordPrefix` => header = header.copy(lines = header.lines + (line.code -> line.value)); Some(header)
+      case `transactionRecordPrefix` => Some(Mt940TransactionRecord(header, transactionRecords + (line.code -> line.value)))
+      case `transactionDescriptionRecordPrefix` => transactionDescriptionRecords += (line.code -> line.value); None
+      case `transactionDecriptionCodeSubrecordPrefix` => transactionDescriptionRecords += (line.code -> line.value); None
+      case `contractorIbanRecordPrefix` => transactionDescriptionRecords += (line.code -> line.value); None
+      case `contractorDescriptionContinuationRecordPrefix` => Some(Mt940TransactionDescriptionRecord(transactionDescriptionRecords))
       case _ => None
     }
   }
