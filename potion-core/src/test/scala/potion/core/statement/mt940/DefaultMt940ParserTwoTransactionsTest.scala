@@ -21,6 +21,7 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.FunSuite
 import Mt940s._
 import scala.io.Source._
+import potion.core.statement.BalanceSign
 
 @RunWith(classOf[JUnitRunner])
 class DefaultMt940ParserTwoTransactionsTest extends FunSuite {

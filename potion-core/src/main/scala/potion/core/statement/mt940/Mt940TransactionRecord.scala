@@ -18,7 +18,8 @@ package potion.core.statement.mt940
 
 import java.util.Date
 import potion.core.statement.mt940.Mt940s._
-import potion.core.statement.mt940.BalanceSign._
+import potion.core.statement.BalanceSign
+import potion.core.statement.BalanceSign.BalanceSign
 
 case class Mt940TransactionRecord(header: Mt940Header, lines: Map[String, String]) extends Mt940Record {
 
