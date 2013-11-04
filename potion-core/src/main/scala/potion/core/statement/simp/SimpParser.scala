@@ -25,7 +25,7 @@ import potion.core.statement.BalanceSign
 class SimpParser {
 
   def parse(statementStream: InputStream): SimpStatement =
-    fromInputStream(statementStream).getLines().foldLeft(None: Option[SimpStatement]) {
+    fromInputStream(statementStream).getLines().map(_.trim).filter(!_.isEmpty).foldLeft(None: Option[SimpStatement]) {
       (statement, line) => Some(assembleStatement(statement, line))
     }.get
 
