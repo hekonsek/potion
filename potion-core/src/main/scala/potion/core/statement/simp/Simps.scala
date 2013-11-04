@@ -20,12 +20,25 @@ import java.text.{SimpleDateFormat, DateFormat}
 
 object Simps {
 
-  val generationTimestampFormatPattern = "yyyy-MM-dd"
+  private val statementTimestampFormatPattern = "yyyy-MM-dd"
 
-  val generationTimestampFormat: DateFormat = new SimpleDateFormat(generationTimestampFormatPattern)
+  private val statementTimestampFormat = new SimpleDateFormat(statementTimestampFormatPattern)
+
+  val generationTimestampFormat: DateFormat = statementTimestampFormat
+
+  val transactionCurrencyDateFormat = statementTimestampFormat
 
   val simpHeaderMarker = "<SIMP2>"
 
   val simpFooterMarker = "</SIMP2>"
+
+  implicit class RichStringToken(rawToken: String) {
+
+    private val quote = "\""
+
+    def normalizedToken =
+      rawToken.trim.stripPrefix(quote).stripSuffix(quote)
+
+  }
 
 }

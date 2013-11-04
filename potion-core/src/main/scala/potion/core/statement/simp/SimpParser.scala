@@ -45,7 +45,9 @@ class SimpParser {
           simpAccountNumber = transactionTokens(0),
           transactionValue = transactionTokens(1).toLong,
           balanceSign = BalanceSign.withName(transactionTokens(2)),
-          transactionId = transactionTokens(6)
+          currencyDate = transactionCurrencyDateFormat.parse(transactionTokens(4)),
+          transactionId = transactionTokens(6),
+          contractorAccountNumber = transactionTokens(8).normalizedToken
         )
         statement.get.copy(transactions = statement.get.transactions :+ transaction)
       }

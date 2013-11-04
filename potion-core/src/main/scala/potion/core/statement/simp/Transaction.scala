@@ -17,5 +17,9 @@
 package potion.core.statement.simp
 
 import potion.core.statement.BalanceSign.BalanceSign
+import java.util.Date
 
-case class Transaction(simpAccountNumber: String, transactionValue: Long, balanceSign: BalanceSign, transactionId: String)
+case class Transaction(simpAccountNumber: String,
+                       transactionValue: Long, balanceSign: BalanceSign, currencyDate: Date,
+                       transactionId: String,
+                       contractorAccountNumber: String)
