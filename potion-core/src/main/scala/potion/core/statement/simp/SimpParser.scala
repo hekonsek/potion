@@ -24,10 +24,13 @@ import potion.core.statement.BalanceSign
 
 class SimpParser(lineSplitter: LineSplitter = RegexLineSplitter()) {
 
-  def parse(statementStream: InputStream): SimpStatement =
-    fromInputStream(statementStream).getLines().map(_.trim).filter(!_.isEmpty).foldLeft(None: Option[SimpStatement]) {
+  def parse(statementStream: InputStream): SimpStatement = {
+    val rawLines = fromInputStream(statementStream).getLines()
+    val nonEmptyLines = rawLines.map(_.trim).filter(!_.isEmpty)
+    nonEmptyLines.foldLeft(None: Option[SimpStatement]) {
       (statement, line) => Some(assembleStatement(statement, line))
     }.get
+  }
 
   private def assembleStatement(statement: Option[SimpStatement], inputLine: String): SimpStatement =
     inputLine match {
