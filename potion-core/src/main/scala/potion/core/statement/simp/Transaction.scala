@@ -22,4 +22,9 @@ import java.util.Date
 case class Transaction(simpAccountNumber: String,
                        transactionValue: Long, balanceSign: BalanceSign, currencyDate: Date,
                        transactionId: String,
-                       contractorAccountNumber: String)
+                       contractorAccountNumber: String, transactionDescription: Seq[String]) {
+
+  def flatTransactionDescription =
+    transactionDescription.mkString
+
+}

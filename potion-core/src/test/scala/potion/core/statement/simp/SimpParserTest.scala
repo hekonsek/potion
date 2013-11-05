@@ -43,6 +43,8 @@ class SimpParserTest extends FunSuite {
 
   val transactionCurrencyDate = transactionCurrencyDateFormat.parse("2013-10-24")
 
+  val transactionDescription = "FV 1/2/2013 FOO BAR, BAZ QUX"
+
   // Tests
 
   test("Should parse statement generation date.") {
@@ -96,6 +98,12 @@ class SimpParserTest extends FunSuite {
   test("Should parse transaction contractor account number.") {
     expectResult(transactionContractorAccountNumber) {
       statement.transactions.head.contractorAccountNumber
+    }
+  }
+
+  test("Should parse transaction description.") {
+    expectResult(transactionDescription) {
+      statement.transactions.head.flatTransactionDescription
     }
   }
 

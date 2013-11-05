@@ -22,7 +22,7 @@ import scala.None
 import Simps._
 import potion.core.statement.BalanceSign
 
-class SimpParser {
+class SimpParser(lineSplitter: LineSplitter = RegexLineSplitter()) {
 
   def parse(statementStream: InputStream): SimpStatement =
     fromInputStream(statementStream).getLines().map(_.trim).filter(!_.isEmpty).foldLeft(None: Option[SimpStatement]) {
@@ -33,21 +33,22 @@ class SimpParser {
     inputLine match {
       case header if header.startsWith(simpHeaderMarker) => {
         val headerWithoutMarker = header.substring(simpHeaderMarker.length)
-        val headerTokens = headerWithoutMarker.split(',')
+        val headerTokens = lineSplitter.splitLine(headerWithoutMarker)
         val clientCode = headerTokens(0)
         val generationDate = generationTimestampFormat.parse(headerTokens(1))
         SimpStatement(generationDate, clientCode, Seq.empty)
       }
       case footer if footer.startsWith(simpFooterMarker) => statement.get
       case transactionLine => {
-        val transactionTokens = transactionLine.split(',')
+        val transactionTokens = lineSplitter.splitLine(transactionLine)
         val transaction = Transaction(
           simpAccountNumber = transactionTokens(0),
           transactionValue = transactionTokens(1).toLong,
           balanceSign = BalanceSign.withName(transactionTokens(2)),
           currencyDate = transactionCurrencyDateFormat.parse(transactionTokens(4)),
           transactionId = transactionTokens(6),
-          contractorAccountNumber = transactionTokens(8).normalizedToken
+          contractorAccountNumber = transactionTokens(8).normalizedToken,
+          transactionDescription = transactionTokens.slice(13, 16).map(_.normalizedToken)
         )
         statement.get.copy(transactions = statement.get.transactions :+ transaction)
       }
