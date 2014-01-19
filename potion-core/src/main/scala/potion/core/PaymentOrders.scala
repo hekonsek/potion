@@ -21,18 +21,20 @@ import potion.core.elixirzero.GenericPaymentOrder
 
 object PaymentOrders {
 
-  def quotes(value: Any): String =
-    "\"%s\"".format(value)
+  def quotes(quoteEscaper: QuoteEscaper, value: Any): String = {
+    val escapedValue = quoteEscaper.escapeQuotes(value.toString)
+    "\"%s\"".format(escapedValue)
+  }
 
   def multiLine(lines: Seq[String]): String =
     lines.mkString(multiLineSeparator)
 
-  def paymentDescription(paymentOrder: GenericPaymentOrder): String = {
+  def paymentDescription(quoteEscaper: QuoteEscaper, paymentOrder: GenericPaymentOrder): String = {
     val descriptionLines = paymentOrder.paymentSystem match {
       case PaymentSystem.sorbnet => paymentOrder.descriptionOfPayment :+ sorbnetIdentifier
       case _ => paymentOrder.descriptionOfPayment
     }
-    quotes(multiLine(descriptionLines))
+    quotes(quoteEscaper, multiLine(descriptionLines))
   }
 
 }

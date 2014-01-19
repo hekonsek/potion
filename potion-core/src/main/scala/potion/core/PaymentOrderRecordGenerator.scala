@@ -31,7 +31,7 @@ object PaymentOrderRecordGenerator {
 
   def buildDefault: PaymentOrderRecordGenerator = {
     val transactionTypeChecksumResolver = TaxUnawareTransactionTypeChecksumResolver()
-    val paymentRecordHandlers = ElixirExpresses.recordGenerator orElse ElixirZeros.recordGenerator(transactionTypeChecksumResolver)
+    val paymentRecordHandlers = ElixirExpresses.recordGenerator orElse ElixirZeros.recordGenerator(new RemovingQuoteEscaper, transactionTypeChecksumResolver)
     new DefaultPaymentOrderRecordGenerator(paymentRecordHandlers)
   }
 

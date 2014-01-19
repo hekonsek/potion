@@ -17,7 +17,7 @@
 package potion.core.elixirzero
 
 import java.text.SimpleDateFormat
-import potion.core.PaymentOrder
+import potion.core.{QuoteEscaper, PaymentOrder}
 import potion.core.PaymentOrders._
 import java.lang.System._
 
@@ -33,23 +33,23 @@ object ElixirZeros {
 
   val sorbnetIdentifier = "SORBNET"
 
-  def recordGenerator(transactionTypeChecksumResolver: TransactionTypeChecksumResolver): PartialFunction[PaymentOrder, Seq[Any]] = {
+  def recordGenerator(quoteEscaper: QuoteEscaper, transactionTypeChecksumResolver: TransactionTypeChecksumResolver): PartialFunction[PaymentOrder, Seq[Any]] = {
     case order: GenericPaymentOrder => Seq(
       order.transactionType.id,
       paymentOrderDateFormat.format(order.dateOfPayment),
       order.amount,
       order.senderBankSettlementNumber,
       0,
-      quotes(order.senderBankAccountNumber),
-      quotes(order.receiverBankAccountNumber),
-      quotes(multiLine(order.senderNameAndAddress)),
-      quotes(multiLine(order.receiverNameAndAddress)),
+      quotes(quoteEscaper, order.senderBankAccountNumber),
+      quotes(quoteEscaper, order.receiverBankAccountNumber),
+      quotes(quoteEscaper, multiLine(order.senderNameAndAddress)),
+      quotes(quoteEscaper, multiLine(order.receiverNameAndAddress)),
       0,
       order.receiverBankSettlementNumber,
-      paymentDescription(order),
-      quotes(""), quotes(""),
-      quotes(transactionTypeChecksumResolver.transactionTypeChecksum(order.transactionType)),
-      quotes(order.clientCorrelationId.getOrElse(nanoTime))
+      paymentDescription(quoteEscaper, order),
+      quotes(quoteEscaper, ""), quotes(quoteEscaper, ""),
+      quotes(quoteEscaper, transactionTypeChecksumResolver.transactionTypeChecksum(order.transactionType)),
+      quotes(quoteEscaper, order.clientCorrelationId.getOrElse(nanoTime))
     )
   }
 
