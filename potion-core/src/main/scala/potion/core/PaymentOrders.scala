@@ -21,6 +21,8 @@ import potion.core.elixirzero.GenericPaymentOrder
 
 object PaymentOrders {
 
+  val newLineSeparator = "\r\n"
+
   def quotes(quoteEscaper: QuoteEscaper, value: Any): String = {
     val escapedValue = quoteEscaper.escapeQuotes(value.toString)
     "\"%s\"".format(escapedValue)

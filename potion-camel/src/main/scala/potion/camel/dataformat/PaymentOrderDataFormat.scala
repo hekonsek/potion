@@ -21,12 +21,13 @@ import org.apache.camel.Exchange
 import java.io.{OutputStream, InputStream}
 import scala.collection.JavaConversions._
 import potion.core.{PaymentOrder, PaymentOrderRecordGenerator}
+import potion.core.PaymentOrders.newLineSeparator
 
 class PaymentOrderDataFormat(paymentOrderRecordGenerator: PaymentOrderRecordGenerator) extends DataFormat {
 
   def marshal(exchange: Exchange, graph: scala.Any, stream: OutputStream) {
     val records = exchange.getContext.getTypeConverter.convertTo(classOf[java.util.List[PaymentOrder]], graph)
-    records.iterator.foreach(order => stream.write((paymentOrderRecordGenerator.generate(order) + "\n").getBytes))
+    records.iterator.foreach(order => stream.write((paymentOrderRecordGenerator.generate(order) + newLineSeparator).getBytes))
   }
 
   def unmarshal(exchange: Exchange, stream: InputStream): AnyRef =

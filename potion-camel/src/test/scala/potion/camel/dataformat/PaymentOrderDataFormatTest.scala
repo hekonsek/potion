@@ -17,13 +17,13 @@
 package potion.camel.dataformat
 
 import org.apache.camel.test.junit4.CamelTestSupport
-import potion.core.PaymentSystem
+import potion.core.{RemovingQuoteEscaper, PaymentSystem, DefaultPaymentOrderRecordGenerator}
+import potion.core.PaymentOrders.newLineSeparator
 import potion.core.elixirzero.{TransactionType, ElixirZeros, TaxUnawareTransactionTypeChecksumResolver, GenericPaymentOrder}
 import potion.core.elixirexpress.ElixirExpresses
 import potion.core.elixirzero.ElixirZeros._
 import org.junit.Test
 import scala.io.Source._
-import potion.core.DefaultPaymentOrderRecordGenerator
 import scala.Some
 import com.google.common.collect.Lists.newArrayList
 import org.apache.camel.scala.dsl.builder.{RouteBuilder => ScalaRouteBuilder, RouteBuilderSupport}
@@ -34,7 +34,7 @@ class PaymentOrderDataFormatTest extends CamelTestSupport with RouteBuilderSuppo
 
   val transactionTypeChecksumResolver = TaxUnawareTransactionTypeChecksumResolver()
 
-  val paymentRecordHandlers = ElixirExpresses.recordGenerator orElse ElixirZeros.recordGenerator(transactionTypeChecksumResolver)
+  val paymentRecordHandlers = ElixirExpresses.recordGenerator orElse ElixirZeros.recordGenerator(new RemovingQuoteEscaper, transactionTypeChecksumResolver)
 
   val paymentOrderRecordGenerator = new DefaultPaymentOrderRecordGenerator(paymentRecordHandlers)
 
@@ -53,7 +53,7 @@ class PaymentOrderDataFormatTest extends CamelTestSupport with RouteBuilderSuppo
   def shouldGenerateElixirZeroPaymentOrderFile() {
     // Given
     val ingReferenceExample = fromInputStream(getClass.getResourceAsStream("ing_elixir_example.txt")).getLines().next()
-    val expectedFile = "%s\n%s\n".format(ingReferenceExample, ingReferenceExample)
+    val expectedFile = ingReferenceExample + newLineSeparator + ingReferenceExample + newLineSeparator
     val paymentOrder = GenericPaymentOrder(
       paymentSystem = PaymentSystem.elixir0,
       transactionType = TransactionType.regularAndTax,
