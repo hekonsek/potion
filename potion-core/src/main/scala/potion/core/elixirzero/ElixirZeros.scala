@@ -23,6 +23,8 @@ import java.lang.System._
 
 object ElixirZeros {
 
+  val titleLineLength = 35
+
   val recordFieldsSeparator = ","
 
   val multiLineSeparator = "|"
