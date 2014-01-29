@@ -107,4 +107,10 @@ class SimpParserTest extends FunSuite {
     }
   }
 
+  test("Should parse transaction description 2.") {
+    intercept[InvalidTransactionRecordException] {
+      simpParser.parse(getClass.getResourceAsStream("simp_invalid_record_example.txt"))
+    }
+  }
+
 }

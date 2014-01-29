@@ -23,9 +23,8 @@ import scala.collection.JavaConversions._
 import potion.core.{PaymentOrder, PaymentOrderRecordGenerator}
 import potion.core.PaymentOrders.newLineSeparator
 import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets.US_ASCII
 
-class PaymentOrderDataFormat(paymentOrderRecordGenerator: PaymentOrderRecordGenerator, charset: Charset = US_ASCII) extends DataFormat {
+class PaymentOrderDataFormat(paymentOrderRecordGenerator: PaymentOrderRecordGenerator, charset: Charset = Charset.forName("windows-1250")) extends DataFormat {
 
   def marshal(exchange: Exchange, graph: scala.Any, stream: OutputStream) {
     val records = exchange.getContext.getTypeConverter.convertTo(classOf[java.util.List[PaymentOrder]], graph)
