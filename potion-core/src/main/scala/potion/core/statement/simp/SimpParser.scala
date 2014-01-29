@@ -44,7 +44,7 @@ class SimpParser(lineSplitter: LineSplitter = RegexLineSplitter()) {
       case footer if footer.startsWith(simpFooterMarker) => statement.get
       case transactionLine => {
         val transactionTokens = lineSplitter.splitLine(transactionLine)
-        if (transactionTokens.size < 20) {
+        if (transactionTokens.size != 20) {
           throw new InvalidTransactionRecordException("Transaction record should consist of 20 tokens. Found: " + transactionTokens.size, transactionLine)
         }
         val transaction = Transaction(
