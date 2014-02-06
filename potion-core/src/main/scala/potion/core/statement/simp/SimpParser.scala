@@ -51,6 +51,7 @@ class SimpParser(lineSplitter: LineSplitter = RegexLineSplitter()) {
           simpAccountNumber = transactionTokens(0),
           transactionValue = transactionTokens(1).toLong,
           balanceSign = BalanceSign.withName(transactionTokens(2)),
+          currency = transactionTokens(3),
           currencyDate = transactionCurrencyDateFormat.parse(transactionTokens(4)),
           transactionId = transactionTokens(6),
           contractorAccountNumber = transactionTokens(8).normalizedToken,

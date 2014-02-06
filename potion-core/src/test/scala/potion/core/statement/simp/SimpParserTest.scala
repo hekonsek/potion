@@ -37,6 +37,8 @@ class SimpParserTest extends FunSuite {
 
   val transactionValue = 482775
 
+  val transactionCurrency = "PLN"
+
   val transactionId = "972019605945"
 
   val transactionContractorAccountNumber = "49103015820000000855156008"
@@ -80,6 +82,12 @@ class SimpParserTest extends FunSuite {
   test("Should parse transaction balance sign.") {
     expectResult(credit) {
       statement.transactions.head.balanceSign
+    }
+  }
+
+  test("Should parse transaction currency.") {
+    expectResult(transactionCurrency) {
+      statement.transactions.head.currency
     }
   }
 

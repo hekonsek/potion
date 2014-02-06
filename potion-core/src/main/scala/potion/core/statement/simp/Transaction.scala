@@ -20,7 +20,7 @@ import potion.core.statement.BalanceSign.BalanceSign
 import java.util.Date
 
 case class Transaction(simpAccountNumber: String,
-                       transactionValue: Long, balanceSign: BalanceSign, currencyDate: Date,
+                       transactionValue: Long, balanceSign: BalanceSign, currency: String, currencyDate: Date,
                        transactionId: String,
                        contractorAccountNumber: String, transactionDescription: Seq[String]) {
 
