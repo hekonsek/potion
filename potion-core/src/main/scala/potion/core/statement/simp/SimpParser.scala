@@ -55,7 +55,7 @@ class SimpParser(lineSplitter: LineSplitter = RegexLineSplitter()) {
           currencyDate = transactionCurrencyDateFormat.parse(transactionTokens(4)),
           transactionId = transactionTokens(6),
           contractorAccountNumber = transactionTokens(8).normalizedToken,
-          transactionDescription = transactionTokens.slice(13, 16).map(_.normalizedToken)
+          transactionDescription = transactionTokens.slice(13, 17).map(_.normalizedToken)
         )
         statement.get.copy(transactions = statement.get.transactions :+ transaction)
       }

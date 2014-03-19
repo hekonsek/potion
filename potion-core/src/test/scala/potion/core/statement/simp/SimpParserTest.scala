@@ -47,6 +47,8 @@ class SimpParserTest extends FunSuite {
 
   val transactionDescription = "FV 1/2/2013 FOO BAR, BAZ QUX"
 
+  val secondTransactionDescription = "FV 3/4/2013  FOO, BAR BAZ QUX"
+
   // Tests
 
   test("Should parse statement generation date.") {
@@ -115,7 +117,13 @@ class SimpParserTest extends FunSuite {
     }
   }
 
-  test("Should parse transaction description 2.") {
+  test("Should parse 4-line long transaction description.") {
+    expectResult(secondTransactionDescription) {
+      statement.transactions.last.flatTransactionDescription
+    }
+  }
+
+  test("Should reject invalid transaction record.") {
     intercept[InvalidTransactionRecordException] {
       simpParser.parse(getClass.getResourceAsStream("simp_invalid_record_example.txt"))
     }
