@@ -10,7 +10,7 @@ allprojects {
 subprojects {
     // Maven compatibility
     apply plugin: 'maven'
-    group = 'com.github.potion-lib'
+    group = 'pl.coderion.potion-lib'
     version = '0.1-SNAPSHOT'
 
     // JVM
@@ -74,7 +74,7 @@ subprojects {
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signPom(deployment) }
 
-                def snapshotRepo = 'https://oss.sonatype.org/content/repositories/snapshots/'
+                def snapshotRepo = 'http://nexus.coderion.pl/nexus/content/repositories/snapshots/'
                 def releaseRepo = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
                 repository(url: isReleaseVersion ? releaseRepo : snapshotRepo) {
                     authentication(userName: sonatypeUsername, password: sonatypePassword)
@@ -85,19 +85,6 @@ subprojects {
                     packaging 'jar'
                     url 'https://github.com/hekonsek/potion'
                     description 'Banking protocols API for JVM.'
-
-                    scm {
-                        url 'scm:git@github.com:hekonsek/potion.git'
-                        connection 'scm:git@github.com:hekonsek/potion.git'
-                        developerConnection 'scm:git@github.com:hekonsek/potion.git'
-                    }
-
-                    developers {
-                        developer {
-                            id 'hekonsek'
-                            name 'Henryk Konsek'
-                        }
-                    }
 
                     licenses {
                         license {

@@ -27,4 +27,7 @@ case class Transaction(simpAccountNumber: String,
   def flatTransactionDescription =
     transactionDescription.mkString
 
+  def flatSenderInfoDescription =
+    senderInfo.mkString
+
 }
