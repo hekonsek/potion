@@ -16,6 +16,9 @@ subprojects {
     // JVM
     apply plugin: 'scala'
 
+    sourceCompatibility = '1.7'
+    targetCompatibility = '1.7'
+
     // Dependencies
     apply plugin: 'propdeps'
     apply plugin: 'propdeps-maven'
